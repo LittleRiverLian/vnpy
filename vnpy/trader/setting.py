@@ -26,13 +26,20 @@ SETTINGS: Dict[str, Any] = {
     "rqdata.username": "",
     "rqdata.password": "",
 
-    "database.driver": "sqlite",  # see database.Driver
-    "database.database": "database.db",  # for sqlite, use this as filepath
+    # "database.driver": "sqlite",  # see database.Driver
+    # "database.database": "database.db",  # for sqlite, use this as filepath
+    # "database.host": "localhost",
+    # "database.port": 3306,
+    # "database.user": "root",
+    # "database.password": "",
+    # "database.authentication_source": "admin",  # for mongodb
+    "database.driver": "mongodb",
+    "database.database": "vnpytest",
     "database.host": "localhost",
-    "database.port": 3306,
-    "database.user": "root",
+    "database.port": 27017,
+    "database.user": "",
     "database.password": "",
-    "database.authentication_source": "admin",  # for mongodb
+    "database.authentication_source": ""
 }
 
 # Load global setting from json file.
