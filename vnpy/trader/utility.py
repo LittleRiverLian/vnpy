@@ -677,7 +677,7 @@ class ArrayManager(object):
     def donchian(
         self,
         n: int,
-        dev: float,
+        dev: float = 0,
         array: bool = False
     ) -> Union[
         Tuple[np.ndarray, np.ndarray],
