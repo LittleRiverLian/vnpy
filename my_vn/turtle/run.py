@@ -3,9 +3,6 @@
 
 from datetime import datetime
 
-import numpy as np
-import matplotlib.pyplot as plt
-
 from turtleEngine import BacktestingEngine
 
 engine = BacktestingEngine()

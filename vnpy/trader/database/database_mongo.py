@@ -3,7 +3,6 @@ from enum import Enum
 from typing import Optional, Sequence
 
 from mongoengine import DateTimeField, Document, FloatField, StringField, connect
-from mongoengine.context_managers import switch_collection
 
 from vnpy.trader.constant import Exchange, Interval
 from vnpy.trader.object import BarData, TickData
@@ -264,12 +263,12 @@ class DbTickData(Document):
 class MongoManager(BaseDatabaseManager):
 
     def load_bar_data(
-            self,
-            symbol: str,
-            exchange: Exchange,
-            interval: Interval,
-            start: datetime,
-            end: datetime,
+        self,
+        symbol: str,
+        exchange: Exchange,
+        interval: Interval,
+        start: datetime,
+        end: datetime,
     ) -> Sequence[BarData]:
         s = DbBarData.objects(
             symbol=symbol,
@@ -282,7 +281,7 @@ class MongoManager(BaseDatabaseManager):
         return data
 
     def load_tick_data(
-            self, symbol: str, exchange: Exchange, start: datetime, end: datetime
+        self, symbol: str, exchange: Exchange, start: datetime, end: datetime
     ) -> Sequence[TickData]:
         s = DbTickData.objects(
             symbol=symbol,
@@ -300,75 +299,47 @@ class MongoManager(BaseDatabaseManager):
             for k, v in d.__dict__.items()
         }
 
-    # def save_bar_data(self, datas: Sequence[BarData]):
-    def save_bar_data(self, datas: Sequence[BarData], collection_name: str = None):
+    def save_bar_data(self, datas: Sequence[BarData]):
         for d in datas:
             updates = self.to_update_param(d)
             updates.pop("set__gateway_name")
             updates.pop("set__vt_symbol")
-            # (
-            #     DbBarData.objects(
-            #         symbol=d.symbol, interval=d.interval.value, datetime=d.datetime
-            #     ).update_one(upsert=True, **updates)
-            # )
-            if collection_name is None:
-                (
-                    DbBarData.objects(
-                        symbol=d.symbol, interval=d.interval.value, datetime=d.datetime
-                    ).update_one(upsert=True, **updates)
-                )
-            else:
-                with switch_collection(DbBarData, collection_name):
-                    (
-                        DbBarData.objects(
-                            symbol=d.symbol, interval=d.interval.value, datetime=d.datetime
-                        ).update_one(upsert=True, **updates)
-                    )
+            (
+                DbBarData.objects(
+                    symbol=d.symbol, interval=d.interval.value, datetime=d.datetime
+                ).update_one(upsert=True, **updates)
+            )
 
-    # def save_tick_data(self, datas: Sequence[TickData]):
-    def save_tick_data(self, datas: Sequence[TickData], collection_name: str = None):
+    def save_tick_data(self, datas: Sequence[TickData]):
         for d in datas:
             updates = self.to_update_param(d)
             updates.pop("set__gateway_name")
             updates.pop("set__vt_symbol")
-            # (
-            #     DbTickData.objects(
-            #         symbol=d.symbol, exchange=d.exchange.value, datetime=d.datetime
-            #     ).update_one(upsert=True, **updates)
-            # )
-            if collection_name is None:
-                (
-                    DbTickData.objects(
-                        symbol=d.symbol, exchange=d.exchange.value, datetime=d.datetime
-                    ).update_one(upsert=True, **updates)
-                )
-            else:
-                with switch_collection(DbTickData, collection_name):
-                    (
-                        DbTickData.objects(
-                            symbol=d.symbol, exchange=d.exchange.value, datetime=d.datetime
-                        ).update_one(upsert=True, **updates)
-                    )
+            (
+                DbTickData.objects(
+                    symbol=d.symbol, exchange=d.exchange.value, datetime=d.datetime
+                ).update_one(upsert=True, **updates)
+            )
 
     def get_newest_bar_data(
-            self, symbol: str, exchange: "Exchange", interval: "Interval"
+        self, symbol: str, exchange: "Exchange", interval: "Interval"
     ) -> Optional["BarData"]:
         s = (
             DbBarData.objects(symbol=symbol, exchange=exchange.value)
-                .order_by("-datetime")
-                .first()
+            .order_by("-datetime")
+            .first()
         )
         if s:
             return s.to_bar()
         return None
 
     def get_newest_tick_data(
-            self, symbol: str, exchange: "Exchange"
+        self, symbol: str, exchange: "Exchange"
     ) -> Optional["TickData"]:
         s = (
             DbTickData.objects(symbol=symbol, exchange=exchange.value)
-                .order_by("-datetime")
-                .first()
+            .order_by("-datetime")
+            .first()
         )
         if s:
             return s.to_tick()

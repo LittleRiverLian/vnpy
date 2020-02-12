@@ -37,7 +37,7 @@ def generateVtBar(row, symbol):
     bar = VtBarData()
     
     bar.symbol = symbol
-    bar.vtSymbol = symbol
+    # bar.vtSymbol = symbol
     bar.open = row['open']
     bar.high = row['high']
     bar.low = row['low']

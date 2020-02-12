@@ -37,7 +37,7 @@ def loadCsv(filename, symbol):
             )
             bars.append(bar)
 
-        database_manager.save_bar_data(bars, symbol)
+        database_manager.save_bar_data(bars)
 
 
 if __name__ == '__main__':
