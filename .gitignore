@@ -27,6 +27,7 @@ dist
 *.iobj
 *.ipdb
 *.pdb
+*.json
 
 # Documents
 _build
