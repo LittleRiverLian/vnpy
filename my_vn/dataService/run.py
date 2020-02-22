@@ -17,16 +17,16 @@ def runBacktesting(filename):
     engine.showResult()
 
 
-# runBacktesting("setting_portfolio.csv")
+runBacktesting("setting_portfolio.csv")
 
 # 下载数据
-downloadDailyBarBySymbol("IF99")
-downloadDailyBarBySymbol("I99")
-downloadDailyBarBySymbol("CU99")
-downloadDailyBarBySymbol("TA99")
-downloadDailyBarBySymbol("AL99")
-downloadDailyBarBySymbol("RB99")
-downloadDailyBarBySymbol("ZN99")
-downloadDailyBarBySymbol("M99")
-downloadDailyBarBySymbol("J99")
-downloadDailyBarBySymbol("JM99")
+# downloadDailyBarBySymbol("IF99")
+# downloadDailyBarBySymbol("I99")
+# downloadDailyBarBySymbol("CU99")
+# downloadDailyBarBySymbol("TA99")
+# downloadDailyBarBySymbol("AL99")
+# downloadDailyBarBySymbol("RB99")
+# downloadDailyBarBySymbol("ZN99")
+# downloadDailyBarBySymbol("M99")
+# downloadDailyBarBySymbol("J99")
+# downloadDailyBarBySymbol("JM99")

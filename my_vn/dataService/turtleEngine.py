@@ -44,7 +44,7 @@ class BacktestingEngine(object):
         self.endDt = None
         self.currentDt = None
 
-        self.dataDict = OrderedDict()
+        self.dataDict = OrderedDict() #所有表数据，按照(日期,{合约名称：合约对象}) 存储
         self.tradeDict = OrderedDict()
 
         self.result = None

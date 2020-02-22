@@ -102,7 +102,7 @@ def downloadDailyBarBySymbol(symbol):
     """下载某一合约日线数据"""
     start = time()
 
-    df = rq.get_price(symbol, frequency='1d', fields=FIELDS, end_date=datetime.now().strftime('%Y%m%d'))
+    df = rq.get_price(symbol, frequency='1d', fields=FIELDS,start_date="2013-01-04", end_date=datetime.now().strftime('%Y%m%d'))
     bars = []
     for ix, row in df.iterrows():
         bar = generateVtBar(row, symbol, Interval.DAILY)
